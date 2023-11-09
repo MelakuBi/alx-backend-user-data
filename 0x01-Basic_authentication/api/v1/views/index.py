@@ -25,35 +25,14 @@ def stats() -> str:
     stats['users'] = User.count()
     return jsonify(stats)
 
-@app_views.route('/stats/', strict_slashes=False)
-def stats() -> str:
-    """ GET /api/v1/stats
-    Return:
-      - the number of each objects
-    """
-    from models.user import User
-    stats = {}
-    stats['users'] = User.count()
-    return jsonify(stats)
 
-
-@app_views.route("/unauthorized/",
-                 strict_slashes=False)
+@app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
 def unauthorized() -> str:
-    '''Route unauthorized requests
-
-    Returns:
-        str: 401 status code
-    '''
+    """raise 401 error by abort"""
     abort(401)
 
 
-@app_views.route("/forbidden/",
-                 strict_slashes=False)
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
 def forbidden() -> str:
-    '''Route forbidden requests
-
-    Returns:
-        str: 403 status code
-    '''
+    """endpoint must raise a 403 error"""
     abort(403)
